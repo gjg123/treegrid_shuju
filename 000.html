@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Basic TreeGrid - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../demo.css">
+	<style type="text/css">
+		
+	
+	</style>
+	
+</head>
+<body>
+	
+
+    
+<button class="" onclick="setvalue()">点我</button>
+
+ 
+	
+		<table id="tt" style="width:600px;height:400px">
+	
+</table>
+<div id ="ccss" style="display: none;">
+
+ <select id="state" class="easyui-combobox" name="state"  style="width:100%;">
+				
+				<option value="WY" >请选择目标名称</option>
+				<option value="c" >c</option>
+			</select>
+<!--<input id="mm" name="hhh" value="aa"/>-->
+</div>
+	
+
+</body>
+<script type="text/javascript" src="../../jquery.min.js"></script>
+	<script type="text/javascript" src="../../jquery.easyui.min.js"></script>
+<script type="text/javascript">
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	var objj=[
+		{
+			"id":11,
+			"name":"g",
+			"persons":0,
+			"begin":"ss1",
+			"persons2":"ss1",
+			"end":"bb1",
+			"progress":"gg1"
+		},
+		{
+			"id":10,
+			"name":"f",
+			"persons":0,
+			"begin":"ss1",
+			"persons2":"ss1",
+			"end":"bb1",
+			"progress":"gg1"
+		},
+		{
+			"name":"g",
+			"id":12,
+			"persons":0,
+			"begin":"vv2",
+			"persons2":22,
+			"end":"bb2",
+			"progress":"gg2"
+		},
+		{
+			"name":"f",
+			"id":13,
+			"persons":0,
+			"begin":"vv3",
+			"persons2":223,
+			"end":"bb3",
+			"progress":"gg3"
+		},
+		{
+			"name":"c",
+			"id":14,
+			"persons":0,
+			"begin":"vv3",
+			"persons2":223,
+			"end":"bb3",
+			"progress":"gg3"
+		},
+		{
+			"name":"c",
+			"id":15,
+			"persons":0,
+			"begin":"vv3",
+			"persons2":223,
+			"end":"bb3",
+			"progress":"gg3"
+		},
+		{
+			"name":"e",
+			"id":150,
+			"persons":0,
+			"begin":"vv3",
+			"persons2":223,
+			"end":"bb3",
+			"progress":"gg3"
+		},
+		{
+			"name":"a",
+			"id":152,
+			"persons":0,
+			"begin":"vv3",
+			"persons2":223,
+			"end":"bb3",
+			"progress":"gg3"
+		},
+		{
+			"name":"e",
+			"id":151,
+			"persons":0,
+			"begin":"vv3",
+			"persons2":223,
+			"end":"bb3",
+			"progress":"gg3"
+		},
+		{
+			"name":"g",
+			"id":16,
+			"persons":0,
+			"begin":"vv3",
+			"persons2":223,
+			"end":"bb3",
+			"progress":"gg3"
+		},
+	
+		{
+			"name":"c",
+			"id":17,
+			"persons":0,
+			"begin":"vv3",
+			"persons2":223,
+			"end":"bb3",
+			"progress":"gg3"
+		},
+		{
+			"name":"p",
+			"id":50,
+			"persons":0,
+			"begin":"vv3",
+			"persons2":223,
+			"end":"bb3",
+			"progress":"gg3"
+		},
+		{
+			"name":"q",
+			"id":40,
+			"persons":0,
+			"begin":"vv3",
+			"persons2":223,
+			"end":"bb3",
+			"progress":"gg3"
+			
+		}
+	]
+	//数组对象排序
+	function keysrt(key,desc) {
+	  return function(a,b){
+	    return desc ? ~~(a[key] < b[key]) : ~~(a[key] > b[key]);
+	  }
+	}
+	console.log(objj)	
+	//1第一步排序
+	objj.sort(keysrt('name',true));
+	console.log(objj)	
+	 var allobj={}
+	 allobj.rows=[]
+	 
+	var name
+	Arr=[]
+	//第二部添加_parentId
+	for (var i=0;i<objj.length;i++){
+		for(var j = i+1; j < objj.length; j++){
+	             if(objj[i].name==objj[j].name){	             		
+	 			var obj={
+	 				"_parentId":j+1000,
+	 				"id":objj[i].id,
+					'iconCls':'icon-add',
+					"name":objj[i].name,		
+					"persons2":objj[i].persons2,
+					"begin":objj[i].begin,
+					"end":objj[i].end,
+					"progress":objj[i].progress
+				}
+			objj[j]._parentId=objj[i]._parentId=obj._parentId
+	  		allobj.rows.push(obj)
+	            }   
+	   }		
+	}
+	console.log(allobj)
+	 var x={}
+	  x.rows=[]
+	  var arr000=[]
+	  //第三部添加父节点然后去重
+	  for (var m=0;m<objj.length;m++){
+	  	 x.rows.push(objj[m])
+	  	
+	  	 for (var b=m+1;b<objj.length;b++){
+	  	 	if(objj[m].name==objj[b].name){
+	  	 		 console.log(objj[m].name)
+	  	 		 console.log(objj[m]._parentId)
+	  	 		 var obj00={
+	  	 		 	"id":objj[m]._parentId,
+	  	 		 	"name":objj[m].name
+	  	 		 }
+	  	 		 arr000.push(obj00)
+	  	 	}
+	  	 }
+	  }
+	  console.log(arr000)
+	   var result = [];
+    var objs = {};
+   // 父节点去重
+    for(var n =0; n<arr000.length; n++){
+       if(!objs[arr000[n].name]){
+          result.push(arr000[n]);
+          objs[arr000[n].name] = true;
+       }
+    }
+    console.log(x)
+    console.log(result)
+    //第五部，父节点添加到数组里
+    for (var e=0;e<result.length;e++){
+    	 x.rows.push(result[e])
+    }
+     console.log(x)
+     var y=x
+     //y是最后得到的treegrid数据结构
+       console.log(y)
+ 
+	function setvalue(){			
+		$('#tt').treegrid('loadData',y)							
+	}
+	
+	
+	
+	$('#tt').treegrid({
+	    idField:'id',
+	    treeField:'name',
+	    toolbar:[{
+			text:'全部隐藏',
+			iconCls:'icon-add',
+			handler:function(){alert('add')}
+		},{
+			text:'全部显示',
+			iconCls:'icon-cut',
+			handler:function(){alert('cut')}
+		},{
+			
+			text:document.getElementById('ccss').innerHTML,
+			
+			handler:function(value){
+				
+				//console.log(value)
+			}
+		}],
+	    columns:[[
+			{title:'目标名称',field:'name',width:180},
+			{field:'persons2',title:'人员',width:60,align:'right',sortable:true},
+			{field:'begin',title:'开始日期',width:80,sortable:true},
+			{field:'end',title:'借宿日期',width:80}
+	    ]],
+	    onClickRow: function(node){
+			 if($('#tt').treegrid('isLeaf',node.target)){//判断是否是叶子节点
+			 	console.log(node)
+			 }
+		 }
+	});	
+</script>
+</html>
